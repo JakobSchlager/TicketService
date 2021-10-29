@@ -24,9 +24,6 @@ jobs:
         with:
           images: jakobschlager/ticketservice
 
-      - name: Docker-Compose Build
-        run: docker-compose build
-
       - name: Build and push Docker image
         id: docker_build
         uses: docker/build-push-action@v2
