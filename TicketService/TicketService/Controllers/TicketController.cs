@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TicketService.Commands;
 using TicketService.DTOs;
 
 namespace TicketService.Controllers
@@ -13,10 +15,12 @@ namespace TicketService.Controllers
     public class TicketController : ControllerBase
     {
         private readonly Services.TicketService _ticketService;
+        private readonly IBus _bus; 
 
-        public TicketController(Services.TicketService ticketService)
+        public TicketController(Services.TicketService ticketService, IBus bus)
         {
             this._ticketService = ticketService;
+            this._bus = bus;
         }
 
         [HttpGet]
@@ -33,8 +37,10 @@ namespace TicketService.Controllers
         }
 
         [HttpPost]
-        public ActionResult<TicketDto> Post([FromBody] TicketDto ticketDto)
+        public async Task<ActionResult<TicketDto>> Post([FromBody] TicketDto ticketDto)
         {
+            await _bus.Publish(new TicketCreated { Text = $"The time is {DateTimeOffset.Now}" });
+            Console.WriteLine("TicketCreated sent!"); 
             return Ok(_ticketService.AddTicket(ticketDto));
         }
 
