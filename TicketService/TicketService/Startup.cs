@@ -31,11 +31,17 @@ namespace TicketService
         public void ConfigureServices(IServiceCollection services)
         {
             // Masstransit RabbitMQ
+            var queueSettings = Configuration.GetSection("RabbitMQ:QueueSettings").Get<QueueSettings>(); 
 
             services.AddMassTransit(x =>
             {
                 x.UsingRabbitMq((context, cfg) =>
                 {
+                    cfg.Host(queueSettings.HostName, queueSettings.VirtualHost, h =>
+                    {
+                        h.Username(queueSettings.UserName);
+                        h.Password(queueSettings.Password); 
+                    }); 
                     cfg.ConfigureEndpoints(context);
                 });
             });
