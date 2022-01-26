@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TicketService.Commands;
+using TicketService.Events;
 using TicketService.DTOs;
 
 namespace TicketService.Controllers
@@ -39,7 +39,18 @@ namespace TicketService.Controllers
         [HttpPost]
         public async Task<ActionResult<TicketDto>> Post([FromBody] TicketDto ticketDto)
         {
-            await _bus.Publish(new TicketCreated { Text = $"The time is {DateTimeOffset.Now}" });
+            await _bus.Publish(new TicketCreatedEvent
+            {
+                Firstname = ticketDto.CustomerName,
+                Lastname = "Schlager",
+                Address = "Kino Addresse",
+                TicketId = 231223, 
+                Date = "20.01.2022", 
+                MoviePicUrl = "https://image.tmdb.org/t/p/w500/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg",
+                MovieTitle = "MovieTitle", 
+                Room = 2, 
+                Seat = 23, 
+            });
             Console.WriteLine("TicketCreated sent!"); 
             return Ok(_ticketService.AddTicket(ticketDto));
         }
