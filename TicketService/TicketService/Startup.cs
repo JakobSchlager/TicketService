@@ -51,6 +51,8 @@ namespace TicketService
 
             services.AddDbContext<TicketDbContext>(options => options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], new MySqlServerVersion(new Version(8, 0, 26))));
 
+            services.AddScoped<Services.RoomService>();
+            services.AddScoped<Services.MovieService>();
             services.AddScoped<Services.TicketService>();
 
             services.AddControllers();
