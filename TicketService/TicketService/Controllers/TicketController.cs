@@ -15,12 +15,10 @@ namespace TicketService.Controllers
     public class TicketController : ControllerBase
     {
         private readonly Services.TicketService _ticketService;
-        private readonly IBus _bus; 
 
-        public TicketController(Services.TicketService ticketService, IBus bus)
+        public TicketController(Services.TicketService ticketService)
         {
             this._ticketService = ticketService;
-            this._bus = bus;
         }
 
         [HttpGet]
@@ -39,19 +37,6 @@ namespace TicketService.Controllers
         [HttpPost]
         public async Task<ActionResult<TicketDto>> Post([FromBody] TicketDto ticketDto)
         {
-            await _bus.Publish(new TicketCreatedEvent
-            {
-                Firstname = ticketDto.CustomerName,
-                Lastname = "Schlager",
-                Address = "Kino Addresse",
-                TicketId = 231223, 
-                Date = "20.01.2022", 
-                MoviePicUrl = "https://image.tmdb.org/t/p/w500/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg",
-                MovieTitle = "MovieTitle", 
-                Room = 2, 
-                Seat = 23, 
-            });
-            Console.WriteLine("TicketCreated sent!"); 
             return Ok(_ticketService.AddTicket(ticketDto));
         }
 
