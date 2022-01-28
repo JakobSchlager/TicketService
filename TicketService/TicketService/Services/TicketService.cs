@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using TicketDbLib;
 using TicketDbLib.Entities;
 using TicketService.DTOs;
-using MassTransit; 
+using MassTransit;
+using TicketService.Events;
 
 namespace TicketService.Services
 {
