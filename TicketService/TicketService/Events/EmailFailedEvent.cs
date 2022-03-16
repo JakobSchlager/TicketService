@@ -21,7 +21,6 @@ namespace TicketService.Events
             Console.WriteLine("EmailFailedEvent Reveivid."); 
             _ticketService.DeleteTicket(context.Message.TicketId); 
             Console.WriteLine("Ticket Deleted (async)."); 
-
         }
     }
 }
