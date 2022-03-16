@@ -32,7 +32,9 @@ namespace TicketService.Services
                 Id = x.Id,
                 SeatId = x.SeatId,
                 PresentationId = x.PresentationId,
-                CustomerName = x.CustomerName,
+                CustomerFirstname = x.CustomerFirstname,
+                CustomerLastname = x.CustomerLastname,
+                CustomerEmail = x.CustomerEmail,
             })
             .ToList();
         }
@@ -54,24 +56,27 @@ namespace TicketService.Services
                 Id = 0,
                 SeatId = ticketDto.SeatId,
                 PresentationId = ticketDto.PresentationId,
-                CustomerName = ticketDto.CustomerName,
+                CustomerFirstname = ticketDto.CustomerFirstname,
+                CustomerLastname = ticketDto.CustomerLastname,
+                CustomerEmail = ticketDto.CustomerEmail,
             }).Entity;
 
             _ticketDbContext.SaveChanges();
 
             var presentationDto = await _movieService.GetPresentation(ticket.PresentationId);
             var movieDto = await _movieService.GetMovie(presentationDto.MovieId);
-            var seatDto = await _roomService.GetSeat(ticket.SeatId); 
+            var seatDto = await _roomService.GetSeat(ticket.SeatId);
 
             await _bus.Publish(new TicketCreatedEvent
             {
-                Firstname = ticketDto.CustomerName,
-                Lastname = "Schlager",
+                Firstname = ticketDto.CustomerFirstname,
+                Lastname = ticket.CustomerLastname,
+                Email = ticketDto.CustomerEmail,
                 Address = "Kino Addresse",
                 TicketId = ticketDto.Id,
-                Date = presentationDto.StartTime, 
+                Date = presentationDto.StartTime,
                 MoviePicUrl = movieDto.Image,
-                MovieTitle = movieDto.Title, 
+                MovieTitle = movieDto.Title,
                 Room = seatDto.RoomId,
                 Seat = seatDto.Id,
             });
@@ -81,7 +86,7 @@ namespace TicketService.Services
                 Id = ticket.Id,
                 SeatId = ticket.SeatId,
                 PresentationId = ticket.PresentationId,
-                CustomerName = ticket.CustomerName,
+                CustomerFirstname = ticket.CustomerFirstname,
             };
         }
 
@@ -93,7 +98,9 @@ namespace TicketService.Services
 
             ticketToUpdate.SeatId = ticketDto.SeatId;
             ticketToUpdate.PresentationId = ticketDto.PresentationId;
-            ticketToUpdate.CustomerName = ticketDto.CustomerName;
+            ticketToUpdate.CustomerFirstname = ticketDto.CustomerFirstname;
+            ticketToUpdate.CustomerLastname = ticketDto.CustomerLastname;
+            ticketToUpdate.CustomerEmail = ticketDto.CustomerEmail;
 
             _ticketDbContext.SaveChanges();
 
@@ -102,7 +109,9 @@ namespace TicketService.Services
                 Id = ticketToUpdate.Id,
                 SeatId = ticketToUpdate.SeatId,
                 PresentationId = ticketToUpdate.PresentationId,
-                CustomerName = ticketToUpdate.CustomerName,
+                CustomerFirstname = ticketDto.CustomerFirstname,
+                CustomerLastname = ticketDto.CustomerLastname,
+                CustomerEmail = ticketDto.CustomerEmail,
             };
         }
 

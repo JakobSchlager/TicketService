@@ -6,7 +6,6 @@ namespace TicketService.Services
 {
     public class RoomService
     {
-
         private static HttpClient client = new HttpClient(); 
         public async Task<SeatDto> GetSeat(int id)
         {

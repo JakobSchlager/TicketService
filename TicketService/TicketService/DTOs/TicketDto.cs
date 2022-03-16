@@ -10,6 +10,8 @@ namespace TicketService.DTOs
         public int Id { get; set; }
         public int PresentationId { get; set; }
         public int SeatId { get; set; }
-        public string CustomerName { get; set; }
+        public string CustomerFirstname { get; set; }
+        public string CustomerLastname { get; set; }
+        public string CustomerEmail { get; set; }
     }
 }

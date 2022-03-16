@@ -13,7 +13,9 @@ namespace TicketDbLib.Entities
         public int Id { get; set; }
         public int PresentationId { get; set; }
         public int SeatId { get; set; }
-        public string CustomerName { get; set; }
+        public string CustomerFirstname { get; set; }
+        public string CustomerLastname { get; set; }
+        public string CustomerEmail { get; set; }
     }
 
     public class TicketEntityTypeConfiguration : IEntityTypeConfiguration<Ticket>
@@ -26,28 +28,36 @@ namespace TicketDbLib.Entities
             {
                 Id = 1,
                 PresentationId = 1,
-                CustomerName = "Jakob Schlager",
+                CustomerFirstname = "Jakob",
+                CustomerLastname = "Schlager",
+                CustomerEmail = "jakob.sschlager@gmail.com", 
                 SeatId = 15,
             });
             builder.HasData(new Ticket
             {
                 Id = 2,
                 PresentationId = 1,
-                CustomerName = "Thomas Wahlmüller",
+                CustomerFirstname = "Thomas",
+                CustomerLastname = "Wahlmüller",
+                CustomerEmail = "Thomas.Wahlmüller@gmail.com", 
                 SeatId = 18,
             });
             builder.HasData(new Ticket
             {
                 Id = 3,
                 PresentationId = 2,
-                CustomerName = "Florian Auer",
+                CustomerFirstname = "Florian",
+                CustomerLastname = "Auer",
+                CustomerEmail = "Florian.Auer@gmail.com", 
                 SeatId = 30,
             });
             builder.HasData(new Ticket
             {
                 Id = 4,
                 PresentationId = 2,
-                CustomerName = "Fabian Graml",
+                CustomerFirstname = "Fabian",
+                CustomerLastname = "Graml",
+                CustomerEmail = "Fabian.Graml@gmail.com", 
                 SeatId = 31,
             });
         }
