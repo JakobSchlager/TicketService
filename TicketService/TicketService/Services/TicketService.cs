@@ -78,7 +78,7 @@ namespace TicketService.Services
                 Lastname = ticketDto.CustomerLastname,
                 Email = ticketDto.CustomerEmail,
                 Address = "Kino Addresse",
-                TicketId = ticketDto.Id,
+                TicketId = ticket.Id,
                 Date = presentationDto.StartTime,
                 MoviePicUrl = movieDto.Image,
                 MovieTitle = movieDto.Title,
@@ -121,7 +121,28 @@ namespace TicketService.Services
                 CustomerEmail = ticketDto.CustomerEmail,
             };
         }
+        public TicketDto DeleteTicket(int ticketId)
+        {
+            var ticket = _ticketDbContext.Tickets.FirstOrDefault(x => x.Id == ticketId);
+            if (ticket == null)
+            {
+                Console.WriteLine($"TicketService::DelteTicket, Ticket Cant be deleted: {ticketId} does not exist"); 
+                return null;
+            }
 
+            _ticketDbContext.Tickets.Remove(ticket);
+            _ticketDbContext.SaveChanges(); 
+
+            return new TicketDto
+            {
+                Id = ticket.Id,
+                SeatId = ticket.SeatId,
+                PresentationId = ticket.PresentationId,
+                CustomerFirstname = ticket.CustomerFirstname,
+                CustomerLastname = ticket.CustomerLastname,
+                CustomerEmail = ticket.CustomerEmail,
+            };
+        }
         private bool IsSeatAvailable(int presentationId, int seatId) =>
             _ticketDbContext.Tickets.All(x => !(x.PresentationId == presentationId && x.SeatId == seatId));
     }
