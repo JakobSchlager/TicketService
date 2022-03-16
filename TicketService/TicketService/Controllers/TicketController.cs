@@ -37,7 +37,7 @@ namespace TicketService.Controllers
         [HttpPost]
         public async Task<ActionResult<TicketDto>> Post([FromBody] TicketDto ticketDto)
         {
-            return Ok(_ticketService.AddTicket(ticketDto));
+            return Ok(await _ticketService.AddTicket(ticketDto));
         }
 
         [HttpPut("{id}")]

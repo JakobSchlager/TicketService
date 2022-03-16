@@ -63,14 +63,19 @@ namespace TicketService.Services
 
             _ticketDbContext.SaveChanges();
 
+            Console.WriteLine("Saved Changes");
+
             var presentationDto = await _movieService.GetPresentation(ticket.PresentationId);
+            Console.WriteLine("Got PresentationDto");
             var movieDto = await _movieService.GetMovie(presentationDto.MovieId);
+            Console.WriteLine("Got movieDto");
             var seatDto = await _roomService.GetSeat(ticket.SeatId);
+            Console.WriteLine("Got seatDto");
 
             await _bus.Publish(new TicketCreatedEvent
             {
                 Firstname = ticketDto.CustomerFirstname,
-                Lastname = ticket.CustomerLastname,
+                Lastname = ticketDto.CustomerLastname,
                 Email = ticketDto.CustomerEmail,
                 Address = "Kino Addresse",
                 TicketId = ticketDto.Id,
@@ -80,7 +85,9 @@ namespace TicketService.Services
                 Room = seatDto.RoomId,
                 Seat = seatDto.Id,
             });
-
+            
+            Console.WriteLine("Sent out event");
+            
             return new TicketDto
             {
                 Id = ticket.Id,
