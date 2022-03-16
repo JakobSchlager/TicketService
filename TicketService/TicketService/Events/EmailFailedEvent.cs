@@ -18,7 +18,10 @@ namespace TicketService.Events
 
         public async Task Consume(ConsumeContext<EmailFailedEvent> context)
         {
+            Console.WriteLine("EmailFailedEvent Reveivid."); 
             _ticketService.DeleteTicket(context.Message.TicketId); 
+            Console.WriteLine("Ticket Deleted (async)."); 
+
         }
     }
 }
