@@ -8,7 +8,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using TicketDbLib;
 using MassTransit;
-using TicketService.Events;
+using NotificationService.Events;
 
 namespace TicketService
 {

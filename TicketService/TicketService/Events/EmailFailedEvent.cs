@@ -11,8 +11,8 @@ namespace NotificationService.Events
 
     public class EmailFailedEventConsumer : IConsumer<EmailFailedEvent>
     {
-        private readonly Services.TicketService _ticketService; 
-        public EmailFailedEventConsumer(Services.TicketService ticketService)
+        private readonly TicketService.Services.TicketService _ticketService; 
+        public EmailFailedEventConsumer(TicketService.Services.TicketService ticketService)
         {
             this._ticketService = ticketService;
         }
