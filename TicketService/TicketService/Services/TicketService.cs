@@ -53,7 +53,6 @@ namespace TicketService.Services
 
             var ticket = _ticketDbContext.Tickets.Add(new Ticket
             {
-                Id = 0,
                 SeatId = ticketDto.SeatId,
                 PresentationId = ticketDto.PresentationId,
                 CustomerFirstname = ticketDto.CustomerFirstname,
