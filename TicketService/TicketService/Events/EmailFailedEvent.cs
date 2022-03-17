@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace TicketService.Events
+namespace NotificationService.Events
 {
     public class EmailFailedEvent
     {
