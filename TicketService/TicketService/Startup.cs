@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using TicketDbLib;
 using MassTransit;
+using TicketService.Events;
 
 namespace TicketService
 {
@@ -36,6 +37,8 @@ namespace TicketService
             
             services.AddMassTransit(x =>
             {
+                x.AddConsumer<EmailFailedEventConsumer>(); 
+
                 x.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host(queueSettings.HostName, queueSettings.VirtualHost, h =>
