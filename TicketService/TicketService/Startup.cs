@@ -37,7 +37,7 @@ namespace TicketService
             
             services.AddMassTransit(x =>
             {
-                x.AddConsumer<EmailFailedEventConsumer>(); 
+                x.AddConsumer<EmailFailedEventConsumer>().Endpoint(x => x.Name = "EmailFailed_queue");
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
