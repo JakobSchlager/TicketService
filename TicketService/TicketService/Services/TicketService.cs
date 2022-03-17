@@ -123,12 +123,15 @@ namespace TicketService.Services
         }
         public TicketDto DeleteTicket(int ticketId)
         {
+            Console.WriteLine($"TicketService::DeleteTicket, TicketId: {ticketId}"); 
             var ticket = _ticketDbContext.Tickets.FirstOrDefault(x => x.Id == ticketId);
             if (ticket == null)
             {
                 Console.WriteLine($"TicketService::DelteTicket, Ticket Cant be deleted: {ticketId} does not exist"); 
                 return null;
             }
+
+            Console.WriteLine($"TicketService::DeleteTicket, ticket: {ticket.Id}, {ticket.CustomerEmail}"); 
 
             _ticketDbContext.Tickets.Remove(ticket);
             _ticketDbContext.SaveChanges(); 
