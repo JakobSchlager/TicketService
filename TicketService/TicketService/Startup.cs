@@ -29,11 +29,11 @@ namespace TicketService
             // Masstransit RabbitMQ
             var queueSettings = Configuration.GetSection("RabbitMQ:QueueSettings").Get<QueueSettings>(); 
             var rabbitmqHostname = Environment.GetEnvironmentVariable("RABBITMQ_HOSTNAME"); 
-            if(rabbitmqHostname != null)
-            {
-                queueSettings.HostName = rabbitmqHostname; 
-            }
-            Console.WriteLine($"queueSettings.HostName = {queueSettings.HostName}");
+            //if(rabbitmqHostname != null)
+            //{
+            //    queueSettings.HostName = rabbitmqHostname; 
+            //}
+            //Console.WriteLine($"queueSettings.HostName = {queueSettings.HostName}");
             
             services.AddMassTransit(x =>
             {
