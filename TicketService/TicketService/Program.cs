@@ -20,7 +20,7 @@ namespace TicketService
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(config =>
                 {
-                    config.AddJsonFile("appsettings.rabbitmq.json", optional: true, reloadOnChange: true);
+                    config.AddJsonFile("Settings/appsettings.rabbitmq.json", optional: true, reloadOnChange: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
